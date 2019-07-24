@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [serverTime, setServerTime] = useState();
+  useEffect(() => {
+    fetch("/api/time")
+      .then(response => response.text())
+      .then(text => setServerTime(text));
+  }, [setServerTime]);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>The time on server is {serverTime}</p>
       </header>
     </div>
   );
-}
+};
 
 export default App;
